@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class readIdentifiers {
+public class ReadIdentifiers {
 
-    private static readIdentifiers instance = null;
+    private static ReadIdentifiers instance = null;
 
     private static final String COMMA_DELIMITER = ",";
 
@@ -37,7 +37,7 @@ public class readIdentifiers {
     }
 
     public static List<String> getIdentifiers() {
-        if (instance == null) instance = new readIdentifiers();
+        if (instance == null) instance = new ReadIdentifiers();
         return instance.readCsv();
     }
 }

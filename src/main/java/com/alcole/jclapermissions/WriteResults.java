@@ -7,40 +7,24 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WriteResults {
 
-    private static WriteResults instance = null;
+    //private static WriteResults instance = null;
     private static CSVPrinter csvPrinter;
 
-    private WriteResults(String dateTime) {
+    public static void write(String dateTime, List<List<String>> results) {
+        //change to send file name
         String fileName = dateTime + "_" + "results.csv";
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
-            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier"));
-        }
-        catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
-    }
-
-    public static CSVPrinter getCsvPrinter(String dateTime) {
-        if (instance == null) instance = new WriteResults(dateTime);
-        return instance.csvPrinter;
-    }
-
-
-    public static void writeLine(String result) {
-        try {
-            csvPrinter.printRecord(result);
-        }
-        catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
-    }
-
-    public static void flush() {
-        try {
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier", "Type", "other"));
+            for (List<String> result : results) {
+                csvPrinter.printRecord(result);
+            }
             csvPrinter.flush();
         }
         catch (IOException e) {

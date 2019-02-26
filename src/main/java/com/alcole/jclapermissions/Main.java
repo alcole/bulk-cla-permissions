@@ -1,7 +1,6 @@
 package com.alcole.jclapermissions;
 
-import org.apache.commons.csv.CSVPrinter;
-
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,13 +23,17 @@ public class Main {
 
 
     public static void main(String args[]) {
+        //URI logfile = URI.create(strDate + "_log.txt");
+        String logfile = strDate + "_log.txt";
+        WriteLog.setupFile(logfile);
         String key = Key.getKey();
         String licence = SetLicence.getLicence(); // check if licence is valid
+        WriteLog.appendLine(logfile, "licence read ok: " + licence);
 
-        identifiers = readIdentifiers.getIdentifiers();
+        identifiers = ReadIdentifiers.getIdentifiers();
+        WriteLog.appendLine(logfile, "" + identifiers.size() + " identifiers read");
         System.out.println(key + " : " + licence);
         System.out.println(strDate);
-        CSVPrinter csvPrinter = WriteResults.getCsvPrinter(strDate);
         for (String id : identifiers) {
             //valid check and zero padding?
             String type = getType(id).name();
@@ -42,15 +45,15 @@ public class Main {
             System.out.println(id + " "+ type );
 
             //WriteResults.writeLine(id);
-            RestCall.callApi(id, type, licence, key);
+           // RestCall.callApi(id, type, licence, key);
             ArrayList<String> newEntry = new ArrayList<String>();
             newEntry.add(id);
             newEntry.add(type);
             newEntry.add("True");
             results.add(newEntry);
             //extract results
-            //write results to csv
         }
+        WriteResults.write(strDate, results);
 
 
     }
