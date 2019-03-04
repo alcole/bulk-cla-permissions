@@ -25,7 +25,7 @@ public class ReadIdentifiers {
 
     private List<String> readCsv() {
         List<String> records = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("toCheck.csv"));) {
+        try (Scanner scanner = new Scanner(new File("toCheck.csv"))) {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }

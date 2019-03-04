@@ -28,8 +28,8 @@ public class RestCallTest {
         key  = Key.getKey();
     }
 
-    @Test
-    public void keyNotNullTest() {
-        RestCall.callApi("00014664", "ISSN", "136", key);
-    }
+//    @Test
+//    public void keyNotNullTest() {
+//        RestCall.callApi("00014664", "ISSN", "136", key);
+//    }
 }

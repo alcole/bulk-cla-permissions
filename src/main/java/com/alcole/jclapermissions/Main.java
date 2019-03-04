@@ -1,6 +1,10 @@
 package com.alcole.jclapermissions;
 
+import com.alcole.bibliotools.IsnLib;
+
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,22 +15,32 @@ import java.util.List;
 import static com.alcole.bibliotools.IsnLib.getType;
 import static com.alcole.bibliotools.IsnLib.issnFromEan13;
 
-public class Main {
+//invalid count
+//isbn count, issn count
+//included count, excluded count, nf count => summarised
+
+public class Main  {
 
 
     private static Date date = Calendar.getInstance().getTime();
     private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
     private static String strDate = dateFormat.format(date);
+    private static int issnCount = 0;
+    private static int isbnCount = 0;
+    private static int invalidIsnCount = 0;
+
 
     private static List<String> identifiers = new ArrayList<>();
-    private static List<List<String>> results = new ArrayList<List<String>>();
+   // private static List<List<String>> results2 = new ArrayList<List<String>>();
+    //static ResultList results = new ResultList();
 
 
-    public static void main(String args[]) {
+
+    public static void main(String args[]) throws IOException, URISyntaxException {
         //URI logfile = URI.create(strDate + "_log.txt");
         String logfile = strDate + "_log.txt";
         WriteLog.setupFile(logfile);
-        String key = Key.getKey();
+        String key = Key.getKey(); // check if read and write accordingly
         String licence = SetLicence.getLicence(); // check if licence is valid
         WriteLog.appendLine(logfile, "licence read ok: " + licence);
 
@@ -34,43 +48,39 @@ public class Main {
         WriteLog.appendLine(logfile, "" + identifiers.size() + " identifiers read");
         System.out.println(key + " : " + licence);
         System.out.println(strDate);
+
+        ArrayList<PermissionResult> r2 = new ArrayList<>();
+
         for (String id : identifiers) {
             //valid check and zero padding?
-            String type = getType(id).name();
-            if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) type = "ISBN";
-            if (type.equals("ISSNEAN13")) {
-                type = "ISSN";
-                id = issnFromEan13(id);
+            if (!IsnLib.validateIsn(id)) {
+                invalidIsnCount++;
             }
-            System.out.println(id + " "+ type );
+            else {
+                String type = getType(id).name();
+                if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) {
+                    type = "ISBN";
+                    isbnCount++;
+                }
+                else if (type.equals("ISSNEAN13")) {
+                    type = "ISSN";
+                    id = issnFromEan13(id);
+                    issnCount++;
+                }
+                else if (type.equals("ISSN")) issnCount++;
+                System.out.println(id + " "+ type );
 
-            //WriteResults.writeLine(id);
-           // RestCall.callApi(id, type, licence, key);
-            ArrayList<String> newEntry = new ArrayList<String>();
-            newEntry.add(id);
-            newEntry.add(type);
-            newEntry.add("True");
-            results.add(newEntry);
-            //extract results
+                r2.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key).getContent(), id));
+            }
         }
-        WriteResults.write(strDate, results);
-
-
+        WriteResults.write(strDate, r2);
+        for (Object result : r2) {
+            System.out.println(result);
+        }
+        WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " identifiers checked");
+        WriteLog.appendLine(logfile, isbnCount + " ISBNs checked");
+        WriteLog.appendLine(logfile, issnCount + " ISSNs checked");
+        WriteLog.appendLine(logfile, invalidIsnCount + " invalid ISNs");
     }
-
-
-
-
-//
-//            3. set up out file
-//            4. read identifiers
-//            for each identifier
-//                add type
-//                        send to service
-//                write results
-//                        5. write summary
-//
-//
-
 
 }
