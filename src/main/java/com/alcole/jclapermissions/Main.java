@@ -52,7 +52,7 @@ public class Main  {
         ArrayList<PermissionResult> r2 = new ArrayList<>();
 
         for (String id : identifiers) {
-            //valid check and zero padding?
+            //valid check
             if (!IsnLib.validateIsn(id)) {
                 invalidIsnCount++;
             }
@@ -77,10 +77,10 @@ public class Main  {
         for (Object result : r2) {
             System.out.println(result);
         }
-        WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " identifiers checked");
+        WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " permissions checked");
         WriteLog.appendLine(logfile, isbnCount + " ISBNs checked");
         WriteLog.appendLine(logfile, issnCount + " ISSNs checked");
-        WriteLog.appendLine(logfile, invalidIsnCount + " invalid ISNs");
+        WriteLog.appendLine(logfile, invalidIsnCount > 0 ? invalidIsnCount + " invalid ISNs" : "No invalid ISNs");
     }
 
 }
