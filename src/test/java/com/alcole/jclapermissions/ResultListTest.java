@@ -9,12 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ResultListTest {
 
     private ResultList results;
+    private PermissionResult result1;
 
     @Before
     public void initTestCase() {
         results = new ResultList();
+        result1 = new PermissionResult("title", "00000000", "print", "self", "UK", "True", "True", "True");
     }
-
 
     @Test
     public void constructorTest() {
@@ -23,7 +24,7 @@ public class ResultListTest {
 
     @Test
     public void addResultTest() {
-        assertTrue(results.add(new PermissionResult("title", "00000000", "print", "self", "UK", "True", "True", "True")));
+        assertTrue(results.add(result1));
     }
 
 }

@@ -12,8 +12,8 @@ class ResultList implements Iterable {
         results = new ArrayList<>();
     }
 
-    boolean add(PermissionResult Result) {
-        return this.add(Result);
+    public boolean add(PermissionResult Result) {
+        return results.add(Result);
     }
 
     @Override
