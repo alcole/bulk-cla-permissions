@@ -1,9 +1,11 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
+import com.alcole.jclapermissions.Services.LoadKey;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,36 +13,34 @@ import java.nio.file.Paths;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
-public class KeyTest {
+public class LoadKeyTest {
 
 
 
     @BeforeClass
     public static void beforeTest() {
-        System.out.println("Starting KeyTest");
+        System.out.println("Starting LoadKeyTest");
     }
 
     @AfterClass
     public static void afterTest() {
-        System.out.println("Ending KeyTest");
+        System.out.println("Ending LoadKeyTest");
     }
 
 
     @Test
-    public void keyNotNullTest() {
-        assertNotNull(Key.getKey());
+    public void keyNotNullTest() throws IOException {
+        assertNotNull(LoadKey.getKey());
     }
 
     @Test
     public void keyFilePresent() {
         Path p = Paths.get("key.txt");
-
         assertTrue(Files.exists(p));
     }
 
     @Test
-    public void keyLengthTest() {
-        System.out.println(Key.getKey().length());
-        assertTrue(Key.getKey().length() > 0);
+    public void keyLengthTest() throws IOException {
+        assertTrue(LoadKey.getKey().length() > 0);
     }
 }
