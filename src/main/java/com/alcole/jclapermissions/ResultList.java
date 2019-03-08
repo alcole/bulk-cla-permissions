@@ -21,13 +21,4 @@ class ResultList implements Iterable<PermissionResult> {
         return results.iterator();
     }
 
-//    public Iterator<PermissionResult> getResults() {
-//        return set.iterator();
-//    }
-//    public Iterator<Penguin> iterator() {
-//        return getPenguins();
-//    }
-
-    //return ordered?
-    //print summary
 }

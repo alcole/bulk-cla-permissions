@@ -41,7 +41,6 @@ public class SetLicence {
                 System.out.println(e.getMessage());
             }
         }
-        // check if valid code, if not do something write to Log?
     }
 
     public static String getLicence() {
