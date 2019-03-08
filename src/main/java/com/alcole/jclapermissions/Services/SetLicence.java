@@ -1,4 +1,4 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +26,6 @@ public class SetLicence {
         licences.add("232");
         licences.add("234");
         licences.add("235");
-
     }
 
     private String licenceCode = "136";
@@ -50,7 +49,7 @@ public class SetLicence {
         return instance.licenceCode;
     }
 
-    private boolean validateLicenceCode(String code) {
+    public static boolean validateLicenceCode(String code) {
         return licences.contains(code);
     }
 
