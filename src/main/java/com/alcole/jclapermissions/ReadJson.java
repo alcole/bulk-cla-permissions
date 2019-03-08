@@ -2,6 +2,7 @@ package com.alcole.jclapermissions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,18 +26,26 @@ public class ReadJson {
             //read JSON like DOM Parser
             JsonNode rootNode = objectMapper.readTree(json);
             JsonNode idNode = rootNode.path("metadata");
+            System.out.println(rootNode.toString());
+            //check status code and write to log if not ok?
             System.out.println("id = " + idNode);
-            PermissionResult r1  = PermissionResult.builder()
+            JsonNode permissionNode = rootNode.path("usagesSummary");
+            System.out.println(permissionNode.get(0).get("usageType"));
+
+
+            PermissionResult result  = PermissionResult.builder()
                     .identifier(identifier)
-                    .title(idNode.path("title").toString())
-                    .format(idNode.path("publicationForm").toString())
-                    .publisher(idNode.path("publisher").toString()).build();
-            //System.out.println("ident = " + idNode.path("identifier"));
-            System.out.println(r1.toString());
-            JsonNode usage = rootNode.path("usagesSummary");
-            System.out.println("id = " + usage);
-            //results.add(r1);
-            return r1;
+                    .title(idNode.path("title").textValue())
+                    .format(idNode.path("publicationForm").textValue())
+                    .publisher(idNode.path("publisher").textValue())
+                    .publisherCountry(idNode.path("publicationCountry").textValue()).build();
+
+            System.out.println(result.toString());
+
+            if (permissionNode.get(0).get("usageType").textValue().equals("Photocopying")) result.setPhotocopyingPermission(permissionNode.get(0).get("reportType").textValue());
+            if (permissionNode.get(1).get("usageType").textValue().equals("Scanning")) result.setScanningPermission(permissionNode.get(1).get("reportType").textValue());
+            if (permissionNode.get(2).get("usageType").textValue().equals("Digital")) result.setDigitalPermission(permissionNode.get(2).get("reportType").textValue());
+            return result;
     }
 
 }
