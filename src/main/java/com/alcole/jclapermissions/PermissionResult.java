@@ -1,7 +1,10 @@
 package com.alcole.jclapermissions;
 
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
 @Getter
@@ -28,7 +31,7 @@ public class PermissionResult {
 
     @Override
     public String toString() {
-        return identifier + "," +title + "," +  format + "," + publisher;
+        return identifier + "," + title + "," + format + "," + publisher;
     }
 
 

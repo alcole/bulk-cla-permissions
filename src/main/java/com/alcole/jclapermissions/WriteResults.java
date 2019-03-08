@@ -24,13 +24,12 @@ public class WriteResults {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
             csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier", "Title",
                     "Format", "Publisher", "Publisher Country",
-                    "Photocopying", "Scanning","Digital").withEscape('\\').withQuoteMode(QuoteMode.NONE));
+                    "Photocopying", "Scanning", "Digital").withEscape('\\').withQuoteMode(QuoteMode.NONE));
             for (PermissionResult result : results) {
-                csvPrinter.printRecord(result.toArray());//.toArray());
+                csvPrinter.printRecord(result.toArray());
             }
             csvPrinter.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Exception: " + e.getMessage());
         }
     }

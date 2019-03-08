@@ -18,12 +18,12 @@ public class LoadKey {
     private LoadKey() throws IOException {
         Path keyFile = Paths.get("key.txt");
         BufferedReader reader =
-                     Files.newBufferedReader(keyFile);
+                Files.newBufferedReader(keyFile);
         ocp = reader.readLine().trim();
     }
 
     //Get the only object available
-    public static String getKey() throws IOException{
+    public static String getKey() throws IOException {
         if (instance == null) instance = new LoadKey();
         return instance.ocp;
     }

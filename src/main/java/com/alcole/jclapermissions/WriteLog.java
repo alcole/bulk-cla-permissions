@@ -17,8 +17,7 @@ public class WriteLog {
                     Paths.get(fileName),
                     line.getBytes(),
                     StandardOpenOption.APPEND);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
@@ -28,8 +27,7 @@ public class WriteLog {
         Path p = Paths.get(fileName);
         try {
             Files.createFile(p);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

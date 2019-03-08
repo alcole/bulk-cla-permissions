@@ -1,4 +1,5 @@
 package com.alcole.jclapermissions;// // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,7 +20,7 @@ public class RestCall {
 
         HttpClient httpclient = HttpClients.createDefault();
 
-        URIBuilder builder = new URIBuilder("https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/"+identifierType+"/"+identifier+"/"+licenceTypeId);
+        URIBuilder builder = new URIBuilder("https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/" + identifierType + "/" + identifier + "/" + licenceTypeId);
         builder.setParameter("messageId", String.valueOf(messageIdCounter++));
         builder.setParameter("usageTypes", "1,2,8");
         builder.setParameter("htmlToggle", "False");
@@ -28,7 +29,7 @@ public class RestCall {
         HttpGet request = new HttpGet(uri);
         request.setHeader("Ocp-Apim-Subscription-Key", key);
 
-        System.out.println( request.toString() + " " + request.containsHeader("Ocp-Apim-Subscription-Key"));
+        System.out.println(request.toString() + " " + request.containsHeader("Ocp-Apim-Subscription-Key"));
 
         HttpResponse response = httpclient.execute(request);
         HttpEntity entity = response.getEntity();
