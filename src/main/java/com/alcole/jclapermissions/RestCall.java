@@ -19,20 +19,20 @@ public class RestCall {
 
         HttpClient httpclient = HttpClients.createDefault();
 
-            URIBuilder builder = new URIBuilder("https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/"+identifierType+"/"+identifier+"/"+licenceTypeId);
-            builder.setParameter("messageId", String.valueOf(messageIdCounter++));
-            builder.setParameter("usageTypes", "1,2,8");
-            builder.setParameter("htmlToggle", "False");
+        URIBuilder builder = new URIBuilder("https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/"+identifierType+"/"+identifier+"/"+licenceTypeId);
+        builder.setParameter("messageId", String.valueOf(messageIdCounter++));
+        builder.setParameter("usageTypes", "1,2,8");
+        builder.setParameter("htmlToggle", "False");
 
-            URI uri = builder.build();
-            System.out.println(uri);
-            HttpGet request = new HttpGet(uri);
-            request.setHeader("Ocp-Apim-Subscription-Key", key);
+        URI uri = builder.build();
+        HttpGet request = new HttpGet(uri);
+        request.setHeader("Ocp-Apim-Subscription-Key", key);
 
+        System.out.println( request.toString() + " " + request.containsHeader("Ocp-Apim-Subscription-Key"));
 
-            HttpResponse response = httpclient.execute(request);
-            HttpEntity entity = response.getEntity();
-            return entity;
+        HttpResponse response = httpclient.execute(request);
+        HttpEntity entity = response.getEntity();
+        return entity;
     }
 
     public static int getMessageIdCounter() {

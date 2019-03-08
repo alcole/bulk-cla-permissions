@@ -1,10 +1,11 @@
 package com.alcole.jclapermissions;
 
-import com.alcole.jclapermissions.RestCall;
+import com.alcole.jclapermissions.Services.LoadKey;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -15,17 +16,22 @@ public class RestCallTest {
 
     @BeforeClass
     public static void beforeTest() {
-        System.out.println("Starting KeyTest");
+        System.out.println("Starting LoadKeyTest");
     }
 
     @AfterClass
     public static void afterTest() {
-        System.out.println("Ending KeyTest");
+        System.out.println("Ending LoadKeyTest");
     }
 
     @Before
     public void getKey() {
-        key  = Key.getKey();
+        try {
+            key = LoadKey.getKey();
+        }
+        catch (IOException e) {
+            e.getMessage();
+        }
     }
 
 //    @Test
