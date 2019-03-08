@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class ResultList implements Iterable {
+class ResultList implements Iterable<PermissionResult> {
 
     private List<PermissionResult> results;
 
@@ -20,6 +20,13 @@ class ResultList implements Iterable {
     public Iterator<PermissionResult> iterator() {
         return results.iterator();
     }
+
+//    public Iterator<PermissionResult> getResults() {
+//        return set.iterator();
+//    }
+//    public Iterator<Penguin> iterator() {
+//        return getPenguins();
+//    }
 
     //return ordered?
     //print summary

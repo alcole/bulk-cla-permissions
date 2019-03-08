@@ -17,15 +17,16 @@ public class WriteResults {
     //private static WriteResults instance = null;
     private static CSVPrinter csvPrinter;
 
-    public static void write(String dateTime, List<PermissionResult> results) {
+    public static void write(String dateTime, ResultList results) {
         //change to send file name
         String fileName = dateTime + "_" + "results.csv";
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
-            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier","Title",  "Format", "Publisher", "Publisher Country", "other").withEscape('\\').withQuoteMode(QuoteMode.NONE));
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier", "Title",
+                    "Format", "Publisher", "Publisher Country",
+                    "Photocopying", "Scanning","Digital").withEscape('\\').withQuoteMode(QuoteMode.NONE));
             for (PermissionResult result : results) {
-                csvPrinter.printRecord(result.toArray());
-                //csvPrinter.printRecord(result.toString());
+                csvPrinter.printRecord(result.toArray());//.toArray());
             }
             csvPrinter.flush();
         }

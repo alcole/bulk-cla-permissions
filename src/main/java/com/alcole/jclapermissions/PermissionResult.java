@@ -6,6 +6,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
+@EqualsAndHashCode
 //@ToString
 public class PermissionResult {
 
@@ -19,7 +20,7 @@ public class PermissionResult {
     private String scanningPermission;
     private String digitalPermission;
 
-    String[] toArray() {
+    public String[] toArray() {
         String[] array = {identifier, title, format, publisher, publisherCountry
                 , photocopyingPermission, scanningPermission, digitalPermission};
         return array;
