@@ -1,6 +1,5 @@
 package com.alcole.jclapermissions.Services;
 
-import com.alcole.jclapermissions.Services.LoadKey;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 public class LoadKeyTest {
-
 
 
     @BeforeClass

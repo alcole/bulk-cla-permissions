@@ -1,5 +1,7 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
+import com.alcole.jclapermissions.Model.PermissionResult;
+import com.alcole.jclapermissions.ResultList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +16,16 @@ public class ResultListTest {
     @Before
     public void initTestCase() {
         results = new ResultList();
-        result1 = new PermissionResult("title", "00000000", "print", "self", "UK", "True", "True", "True");
+        result1 = PermissionResult.builder()
+                .identifier("00000000")
+                .title("title")
+                .format("print")
+                .publisher("self")
+                .publisherCountry("UK")
+                .photocopyingPermission("Grant")
+                .scanningPermission("Warning")
+                .digitalPermission("Exclude")
+                .build();
     }
 
     @Test

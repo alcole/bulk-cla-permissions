@@ -1,5 +1,6 @@
 package com.alcole.jclapermissions;
 
+import com.alcole.jclapermissions.Model.PermissionResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

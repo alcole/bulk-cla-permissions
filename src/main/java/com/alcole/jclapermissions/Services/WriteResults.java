@@ -1,5 +1,7 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
+import com.alcole.jclapermissions.Model.PermissionResult;
+import com.alcole.jclapermissions.ResultList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;
@@ -8,9 +10,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class WriteResults {
 

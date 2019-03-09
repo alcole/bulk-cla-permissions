@@ -1,4 +1,4 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Model;
 
 
 import lombok.Builder;
@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-//@ToString
 public class PermissionResult {
 
     private String title;

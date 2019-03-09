@@ -1,7 +1,9 @@
 package com.alcole.jclapermissions;
 
 import com.alcole.bibliotools.IsnLib;
+import com.alcole.jclapermissions.Services.ReadIdentifiers;
 import com.alcole.jclapermissions.Services.SetLicence;
+import com.alcole.jclapermissions.Services.WriteResults;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -69,9 +71,9 @@ public class Main {
             }
         }
         WriteResults.write(strDate, results);
-        for (Object result : results) {
-            System.out.println(result);
-        }
+//        for (Object result : results) {
+//            System.out.println(result);
+//        }
 
         WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " permissions checked");
         WriteLog.appendLine(logfile, isbnCount + " ISBNs");

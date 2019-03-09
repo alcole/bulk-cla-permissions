@@ -12,6 +12,7 @@ public class SetLicence {
     private static SetLicence instance = null;
 
     private static HashSet<String> licences = new HashSet<>();
+
     static {
         licences.add("136");
         licences.add("132");
@@ -31,9 +32,9 @@ public class SetLicence {
     private String licenceCode = "136";
 
 
-    private SetLicence(){
+    private SetLicence() {
         Path licenceFile = Paths.get("licence.txt");
-        if(Files.exists(licenceFile)) {
+        if (Files.exists(licenceFile)) {
             try (BufferedReader reader =
                          Files.newBufferedReader(licenceFile)) {
                 licenceCode = reader.readLine().trim();
@@ -51,7 +52,6 @@ public class SetLicence {
     public static boolean validateLicenceCode(String code) {
         return licences.contains(code);
     }
-
 
 
 }

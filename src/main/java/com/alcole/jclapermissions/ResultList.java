@@ -1,14 +1,16 @@
 package com.alcole.jclapermissions;
 
+import com.alcole.jclapermissions.Model.PermissionResult;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class ResultList implements Iterable<PermissionResult> {
+public class ResultList implements Iterable<PermissionResult> {
 
     private List<PermissionResult> results;
 
-    ResultList() {
+    public ResultList() {
         results = new ArrayList<>();
     }
 
