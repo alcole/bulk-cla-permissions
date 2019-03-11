@@ -1,7 +1,6 @@
 package com.alcole.jclapermissions.Services;
 
 import com.alcole.jclapermissions.Model.PermissionResult;
-import com.alcole.jclapermissions.ResultList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;

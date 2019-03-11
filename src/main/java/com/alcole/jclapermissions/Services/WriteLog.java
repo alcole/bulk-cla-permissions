@@ -1,4 +1,4 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
 import java.io.IOException;
 import java.nio.file.Files;

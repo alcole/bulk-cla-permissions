@@ -1,7 +1,6 @@
 package com.alcole.jclapermissions.Services;
 
 import com.alcole.jclapermissions.Model.PermissionResult;
-import com.alcole.jclapermissions.ResultList;
 import org.junit.Before;
 import org.junit.Test;
 

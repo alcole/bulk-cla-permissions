@@ -1,9 +1,7 @@
 package com.alcole.jclapermissions;
 
 import com.alcole.bibliotools.IsnLib;
-import com.alcole.jclapermissions.Services.ReadIdentifiers;
-import com.alcole.jclapermissions.Services.SetLicence;
-import com.alcole.jclapermissions.Services.WriteResults;
+import com.alcole.jclapermissions.Services.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

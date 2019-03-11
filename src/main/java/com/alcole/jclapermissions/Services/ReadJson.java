@@ -1,4 +1,4 @@
-package com.alcole.jclapermissions;
+package com.alcole.jclapermissions.Services;
 
 import com.alcole.jclapermissions.Model.PermissionResult;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 public class ReadJson {
 
-  static PermissionResult readJson(InputStream json, String identifier) throws IOException {
+  public static PermissionResult readJson(InputStream json, String identifier) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
 
     // read JSON like DOM Parser
