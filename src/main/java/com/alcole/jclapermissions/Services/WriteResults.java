@@ -13,12 +13,10 @@ import java.nio.file.Paths;
 
 public class WriteResults {
 
-    //private static WriteResults instance = null;
     private static CSVPrinter csvPrinter;
 
-    public static void write(String dateTime, ResultList results) {
-        //change to send file name
-        String fileName = dateTime + "_" + "results.csv";
+    public static void write(String fileName, ResultList results) {
+        //String fileName = dateTime + "_" + "results.csv";
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
             csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Identifier", "Title",

@@ -20,10 +20,11 @@ import static com.alcole.jclapermissions.Services.LoadKey.getKey;
 
 public class Main {
 
-
     private static Date date = Calendar.getInstance().getTime();
     private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
     private static String strDate = dateFormat.format(date);
+    private static String resultsFileName = strDate + "_results.csv";
+    private static String logfile = strDate + "_log.txt";
 
     private static int issnCount = 0;
     private static int isbnCount = 0;
@@ -33,7 +34,6 @@ public class Main {
     static ResultList results = new ResultList();
 
     public static void main(String args[]) throws IOException, URISyntaxException {
-        String logfile = strDate + "_log.txt";
         WriteLog.setupFile(logfile);
 
         String key = getKey();
@@ -70,7 +70,7 @@ public class Main {
                 results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key).getContent(), id));
             }
         }
-        WriteResults.write(strDate, results);
+        WriteResults.write(resultsFileName, results);
 //        for (Object result : results) {
 //            System.out.println(result);
 //        }
