@@ -8,19 +8,18 @@ import java.util.List;
 
 public class ResultList implements Iterable<PermissionResult> {
 
-    private List<PermissionResult> results;
+  private List<PermissionResult> results;
 
-    public ResultList() {
-        results = new ArrayList<>();
-    }
+  public ResultList() {
+    results = new ArrayList<>();
+  }
 
-    public boolean add(PermissionResult Result) {
-        return results.add(Result);
-    }
+  public boolean add(PermissionResult Result) {
+    return results.add(Result);
+  }
 
-    @Override
-    public Iterator<PermissionResult> iterator() {
-        return results.iterator();
-    }
-
+  @Override
+  public Iterator<PermissionResult> iterator() {
+    return results.iterator();
+  }
 }

@@ -14,31 +14,29 @@ import static org.junit.Assert.assertNotNull;
 
 public class LoadKeyTest {
 
+  @BeforeClass
+  public static void beforeTest() {
+    System.out.println("Starting LoadKeyTest");
+  }
 
-    @BeforeClass
-    public static void beforeTest() {
-        System.out.println("Starting LoadKeyTest");
-    }
+  @AfterClass
+  public static void afterTest() {
+    System.out.println("Ending LoadKeyTest");
+  }
 
-    @AfterClass
-    public static void afterTest() {
-        System.out.println("Ending LoadKeyTest");
-    }
+  @Test
+  public void keyNotNullTest() throws IOException {
+    assertNotNull(LoadKey.getKey());
+  }
 
+  @Test
+  public void keyFilePresent() {
+    Path p = Paths.get("key.txt");
+    assertTrue(Files.exists(p));
+  }
 
-    @Test
-    public void keyNotNullTest() throws IOException {
-        assertNotNull(LoadKey.getKey());
-    }
-
-    @Test
-    public void keyFilePresent() {
-        Path p = Paths.get("key.txt");
-        assertTrue(Files.exists(p));
-    }
-
-    @Test
-    public void keyLengthTest() throws IOException {
-        assertTrue(LoadKey.getKey().length() > 0);
-    }
+  @Test
+  public void keyLengthTest() throws IOException {
+    assertTrue(LoadKey.getKey().length() > 0);
+  }
 }
