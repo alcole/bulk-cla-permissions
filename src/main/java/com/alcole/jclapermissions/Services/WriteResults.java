@@ -32,7 +32,7 @@ public class WriteResults {
                       "Scanning",
                       "Digital")
                   .withEscape('\\')
-                  .withQuoteMode(QuoteMode.NONE));
+                  .withQuote('"'));
       for (PermissionResult result : results) {
         csvPrinter.printRecord(result.toArray());
       }
