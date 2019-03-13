@@ -1,48 +1,35 @@
 package com.alcole.jclapermissions.Services;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.client.fluent.Request;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 public class RestCall {
 
   private static int messageIdCounter = 0;
 
-  public static HttpEntity callApi(
+  public static String callApi(
       String identifier, String identifierType, String licenceTypeId, String key)
       throws IOException, URISyntaxException {
 
-    HttpClient httpclient = HttpClients.createDefault();
+    String uri =
+        String.format(
+            "https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/%s/%s/%s?messageId=%s&usageTypes=1,2,8&htmlToggle=False",
+            identifierType, identifier, licenceTypeId, String.valueOf(messageIdCounter++));
 
-    URIBuilder builder =
-        new URIBuilder(
-            "https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/"
-                + identifierType
-                + "/"
-                + identifier
-                + "/"
-                + licenceTypeId);
-    builder.setParameter("messageId", String.valueOf(messageIdCounter++));
-    builder.setParameter("usageTypes", "1,2,8");
-    builder.setParameter("htmlToggle", "False");
+    String result =
+        Request.Get(uri)
+            .connectTimeout(1000)
+            .setHeader("Ocp-Apim-Subscription-Key", key)
+            // .socketTimeout(1000)
+            .execute()
+            .returnContent()
+            .asString();
 
-    URI uri = builder.build();
-    HttpGet request = new HttpGet(uri);
-    request.setHeader("Ocp-Apim-Subscription-Key", key);
-
-    System.out.println(
-        request.toString() + " " + request.containsHeader("Ocp-Apim-Subscription-Key"));
-
-    HttpResponse response = httpclient.execute(request);
-    HttpEntity entity = response.getEntity();
-    return entity;
+    return result;
   }
 
   public static int getMessageIdCounter() {

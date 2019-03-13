@@ -5,11 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class ReadJson {
 
-  public static PermissionResult readJson(InputStream json, String identifier) throws IOException {
+  public static PermissionResult readJson(String json, String identifier) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
 
     // read JSON like DOM Parser

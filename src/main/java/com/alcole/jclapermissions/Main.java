@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.alcole.bibliotools.IsnLib.getType;
 import static com.alcole.bibliotools.IsnLib.issnFromEan13;
@@ -38,6 +35,7 @@ public class Main {
     if (key.length() > 6) WriteLog.appendLine(logfile, "key read");
     else WriteLog.appendLine(logfile, "key issue, check key.txt");
 
+    //print licence code correponds to ... licence
     String licence = SetLicence.getLicence();
     if (SetLicence.validateLicenceCode(licence)) {
       WriteLog.appendLine(logfile, "licence read ok: " + licence);
@@ -48,32 +46,40 @@ public class Main {
     identifiers = ReadIdentifiers.getIdentifiers();
     WriteLog.appendLine(logfile, "" + identifiers.size() + " identifiers read");
 
-    for (String id : identifiers) {
-      // valid check
-      if (!IsnLib.validateIsn(id)) {
-        invalidIsnCount++;
-        WriteLog.appendLine(logfile, "" + id + " fails check digit validation");
-      } else {
-        String type = getType(id).name();
-        if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) {
-          type = "ISBN";
-          isbnCount++;
-        } else if (type.equals("ISSNEAN13")) {
-          type = "ISSN";
-          id = issnFromEan13(id);
-          issnCount++;
-        } else if (type.equals("ISSN")) issnCount++;
-        System.out.println(id + " " + type);
+    try {
+      for (String id : identifiers) {
+        // valid check
+        if (!IsnLib.validateIsn(id)) {
+          invalidIsnCount++;
+          WriteLog.appendLine(logfile, "" + id + " fails check digit validation");
+        } else {
+          String type = getType(id).name();
+          if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) {
+            type = "ISBN";
+            isbnCount++;
+          } else if (type.equals("ISSNEAN13")) {
+            type = "ISSN";
+            id = issnFromEan13(id);
+            issnCount++;
+          } else if (type.equals("ISSN")) issnCount++;
+          //System.out.println(id + " " + type);
 
-        results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key).getContent(), id));
+            //put try catch here so the loop continues?
+          //results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key).getContent(), id));
+            results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key), id));
+        }
       }
-    }
-    WriteResults.write(resultsFileName, results);
+    } catch (IOException e) {
+      WriteLog.appendLine(logfile, "IOException: " + e.getMessage());
+      System.out.println(Arrays.toString(e.getStackTrace()));
+    } finally {
+      WriteResults.write(resultsFileName, results);
 
-    WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " permissions checked");
-    WriteLog.appendLine(logfile, isbnCount + " ISBNs");
-    WriteLog.appendLine(logfile, issnCount + " ISSNs");
-    WriteLog.appendLine(
-        logfile, invalidIsnCount > 0 ? invalidIsnCount + " invalid ISNs" : "No invalid ISNs");
+      WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " permissions checked");
+      WriteLog.appendLine(logfile, isbnCount == 1 ? isbnCount + "ISBN" : isbnCount + " ISBNs");
+      WriteLog.appendLine(logfile, issnCount == 1 ? issnCount + "ISSN" : issnCount + " ISSNs");
+      WriteLog.appendLine(
+          logfile, invalidIsnCount > 0 ? invalidIsnCount + " invalid ISNs" : "No invalid ISNs");
+    }
   }
 }
