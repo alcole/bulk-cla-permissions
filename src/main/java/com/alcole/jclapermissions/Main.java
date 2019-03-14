@@ -11,7 +11,7 @@ import java.util.*;
 
 import static com.alcole.bibliotools.IsnLib.getType;
 import static com.alcole.bibliotools.IsnLib.issnFromEan13;
-import static com.alcole.jclapermissions.Services.LoadKey.getKey;
+import static com.alcole.jclapermissions.Services.KeyService.getKey;
 
 public class Main {
 

@@ -6,16 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class LoadKey {
+public class KeyService {
 
   // create an object of SingleObject
-  private static LoadKey instance = null;
+  private static KeyService instance = null;
 
   public String ocp = "";
 
   // make the constructor private so that this class cannot be
   // instantiated
-  private LoadKey() throws IOException {
+  private KeyService() throws IOException {
     Path keyFile = Paths.get("key.txt");
     BufferedReader reader = Files.newBufferedReader(keyFile);
     ocp = reader.readLine().trim();
@@ -23,7 +23,7 @@ public class LoadKey {
 
   // Get the only object available
   public static String getKey() throws IOException {
-    if (instance == null) instance = new LoadKey();
+    if (instance == null) instance = new KeyService();
     return instance.ocp;
   }
 }

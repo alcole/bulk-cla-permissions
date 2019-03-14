@@ -2,7 +2,7 @@ package com.alcole.jclapermissions.Services;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,21 +12,21 @@ import java.nio.file.Paths;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
-public class LoadKeyTest {
+public class KeyServiceTest {
 
   @BeforeClass
   public static void beforeTest() {
-    System.out.println("Starting LoadKeyTest");
+    System.out.println("Starting KeyServiceTest");
   }
 
   @AfterClass
   public static void afterTest() {
-    System.out.println("Ending LoadKeyTest");
+    System.out.println("Ending KeyServiceTest");
   }
 
   @Test
   public void keyNotNullTest() throws IOException {
-    assertNotNull(LoadKey.getKey());
+    assertNotNull(KeyService.getKey());
   }
 
   @Test
@@ -37,6 +37,6 @@ public class LoadKeyTest {
 
   @Test
   public void keyLengthTest() throws IOException {
-    assertTrue(LoadKey.getKey().length() > 0);
+    assertTrue(KeyService.getKey().length() > 0);
   }
 }
