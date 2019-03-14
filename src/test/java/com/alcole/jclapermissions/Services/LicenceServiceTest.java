@@ -3,14 +3,13 @@ package com.alcole.jclapermissions.Services;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class LicenceServiceTest {
 
   @Test
   public void ReadLicenceTest() {
-    assertEquals(LicenceService.getLicenceCode(), "143");
+    assertNotNull(LicenceService.getLicenceCode());
   }
 
   @Test
@@ -29,5 +28,11 @@ public class LicenceServiceTest {
     assertTrue(LicenceService.validateLicenceCode("235"));
 
     assertFalse(LicenceService.validateLicenceCode("111"));
+  }
+
+  @Test
+  public void GetLicenceNameTest() {
+    assertEquals("Schools", LicenceService.getLicenceName("143"));
+    assertEquals("Code not found", LicenceService.getLicenceName("123"));
   }
 }
