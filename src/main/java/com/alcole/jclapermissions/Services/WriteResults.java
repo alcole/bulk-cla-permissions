@@ -3,7 +3,6 @@ package com.alcole.jclapermissions.Services;
 import com.alcole.jclapermissions.Model.PermissionResult;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.QuoteMode;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

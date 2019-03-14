@@ -5,14 +5,14 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.alcole.jclapermissions.Services.RestCall.callApi;
+import static com.alcole.jclapermissions.Services.RestService.getPermissions;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class RestCallTest {
+public class RestServiceTest {
 
   @Test
-  public void callApiTest() throws IOException, URISyntaxException {
-    String result = callApi("9781408855652", "ISBN", "136", LoadKey.getKey());
+  public void getPermissionsTest() throws IOException, URISyntaxException {
+    String result = getPermissions("9781408855652", "ISBN", "136", LoadKey.getKey());
     System.out.println(result);
     assertNotNull(result);
   }

@@ -65,8 +65,8 @@ public class Main {
           //System.out.println(id + " " + type);
 
             //put try catch here so the loop continues?
-          //results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key).getContent(), id));
-            results.add(ReadJson.readJson(RestCall.callApi(id, type, licence, key), id));
+          //results.add(ReadJson.readJson(RestService.callApi(id, type, licence, key).getContent(), id));
+            results.add(ReadJson.readJson(RestService.getPermissions(id, type, licence, key), id));
         }
       }
     } catch (IOException e) {
@@ -75,7 +75,7 @@ public class Main {
     } finally {
       WriteResults.write(resultsFileName, results);
 
-      WriteLog.appendLine(logfile, RestCall.getMessageIdCounter() + " permissions checked");
+      WriteLog.appendLine(logfile, RestService.getMessageIdCounter() + " permissions checked");
       WriteLog.appendLine(logfile, isbnCount == 1 ? isbnCount + "ISBN" : isbnCount + " ISBNs");
       WriteLog.appendLine(logfile, issnCount == 1 ? issnCount + "ISSN" : issnCount + " ISSNs");
       WriteLog.appendLine(
