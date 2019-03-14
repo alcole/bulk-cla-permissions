@@ -18,12 +18,13 @@ public class Main {
   private static Date date = Calendar.getInstance().getTime();
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
   private static String strDate = dateFormat.format(date);
-  private static String resultsFileName = strDate + "_results.csv";
-  private static String logfile = strDate + "_log.txt";
+  private static final String resultsFileName = strDate + "_results.csv";
+  private static final String logfile = strDate + "_log.txt";
 
   private static int issnCount = 0;
   private static int isbnCount = 0;
   private static int invalidIsnCount = 0;
+    private static int successfulChecks = 0;
 
   private static List<String> identifiers = new ArrayList<>();
   static ResultList results = new ResultList();
@@ -31,11 +32,11 @@ public class Main {
   public static void main(String args[]) throws IOException, URISyntaxException {
     WriteLog.setupFile(logfile);
 
-    String key = getKey();
+    final String key = getKey();
     if (key.length() > 6) WriteLog.appendLine(logfile, "key read");
     else WriteLog.appendLine(logfile, "key issue, check key.txt");
 
-    //print licence code correponds to ... licence
+    // print licence code correponds to ... licence
     String licence = SetLicence.getLicence();
     if (SetLicence.validateLicenceCode(licence)) {
       WriteLog.appendLine(logfile, "licence read ok: " + licence);
@@ -46,40 +47,39 @@ public class Main {
     identifiers = ReadIdentifiers.getIdentifiers();
     WriteLog.appendLine(logfile, "" + identifiers.size() + " identifiers read");
 
-    try {
-      for (String id : identifiers) {
+    for (String id : identifiers) {
         // valid check
         if (!IsnLib.validateIsn(id)) {
-          invalidIsnCount++;
-          WriteLog.appendLine(logfile, "" + id + " fails check digit validation");
+            invalidIsnCount++;
+            WriteLog.appendLine(logfile, "" + id + " fails check digit validation");
         } else {
-          String type = getType(id).name();
-          if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) {
-            type = "ISBN";
-            isbnCount++;
-          } else if (type.equals("ISSNEAN13")) {
-            type = "ISSN";
-            id = issnFromEan13(id);
-            issnCount++;
-          } else if (type.equals("ISSN")) issnCount++;
-          //System.out.println(id + " " + type);
-
-            //put try catch here so the loop continues?
-          //results.add(ReadJson.readJson(RestService.callApi(id, type, licence, key).getContent(), id));
-            results.add(ReadJson.readJson(RestService.getPermissions(id, type, licence, key), id));
+            String type = getType(id).name();
+            if (type.equals("ISBN13") || type.equals("ISBN10") || type.equals("ISMN")) {
+                type = "ISBN";
+                isbnCount++;
+            } else if (type.equals("ISSNEAN13")) {
+                type = "ISSN";
+                id = issnFromEan13(id);
+                issnCount++;
+            } else if (type.equals("ISSN")) issnCount++;
+            try {
+                results.add(ReadJson.readJson(RestService.getPermissions(id, type, licence, key), id));
+                successfulChecks++;
+            } catch (IOException e) {
+                WriteLog.appendLine(logfile, "IOException: " + e.getMessage() + " on checking " + id);
+                System.out.println(Arrays.toString(e.getStackTrace()));
+                continue;
+            }
         }
-      }
-    } catch (IOException e) {
-      WriteLog.appendLine(logfile, "IOException: " + e.getMessage());
-      System.out.println(Arrays.toString(e.getStackTrace()));
-    } finally {
-      WriteResults.write(resultsFileName, results);
-
-      WriteLog.appendLine(logfile, RestService.getMessageIdCounter() + " permissions checked");
-      WriteLog.appendLine(logfile, isbnCount == 1 ? isbnCount + "ISBN" : isbnCount + " ISBNs");
-      WriteLog.appendLine(logfile, issnCount == 1 ? issnCount + "ISSN" : issnCount + " ISSNs");
-      WriteLog.appendLine(
-          logfile, invalidIsnCount > 0 ? invalidIsnCount + " invalid ISNs" : "No invalid ISNs");
     }
+    //    } finally {
+    WriteResults.write(resultsFileName, results);
+
+    WriteLog.appendLine(logfile, successfulChecks + " permissions checked");
+      WriteLog.appendLine(
+              logfile, invalidIsnCount > 0 ? invalidIsnCount + " invalid ISNs" : "No invalid ISNs");
+    WriteLog.appendLine(logfile, isbnCount == 1 ? isbnCount + "ISBN checked" : isbnCount + " ISBNs checked");
+    WriteLog.appendLine(logfile, issnCount == 1 ? issnCount + "ISSN checked" : issnCount + " ISSNs checked");
+
   }
 }
