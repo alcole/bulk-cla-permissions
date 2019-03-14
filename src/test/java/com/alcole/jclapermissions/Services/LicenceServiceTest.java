@@ -1,11 +1,23 @@
 package com.alcole.jclapermissions.Services;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 
 public class LicenceServiceTest {
+
+  @BeforeClass
+  public static void beforeTest() {
+    System.out.println("Starting LicenceServiceTest");
+  }
+
+  @AfterClass
+  public static void afterTest() {
+    System.out.println("Ending LicenceServiceTest");
+  }
 
   @Test
   public void ReadLicenceTest() {

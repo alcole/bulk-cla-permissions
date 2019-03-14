@@ -1,6 +1,7 @@
 package com.alcole.jclapermissions.Services;
 
 import com.alcole.jclapermissions.Model.PermissionResult;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -10,6 +11,7 @@ public class WriteResultsTest {
 
   @BeforeClass
   public static void beforeTest() {
+    System.out.println("Starting WriteResultsTest");
     results = new ResultList();
     results.add(
         PermissionResult.builder()
@@ -22,6 +24,11 @@ public class WriteResultsTest {
             .scanningPermission("Warning")
             .digitalPermission("Exclude")
             .build());
+  }
+
+  @AfterClass
+  public static void afterTest() {
+    System.out.println("WriteResultsTest");
   }
 
   @Test

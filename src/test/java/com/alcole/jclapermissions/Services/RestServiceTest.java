@@ -1,5 +1,7 @@
 package com.alcole.jclapermissions.Services;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -9,6 +11,16 @@ import static com.alcole.jclapermissions.Services.RestService.getPermissions;
 import static org.junit.Assert.*;
 
 public class RestServiceTest {
+
+  @BeforeClass
+  public static void beforeTest() {
+    System.out.println("Starting RestServiceTest");
+  }
+
+  @AfterClass
+  public static void afterTest() {
+    System.out.println("Ending RestServiceTest");
+  }
 
   @Test
   public void getPermissionsTest() throws IOException, URISyntaxException {

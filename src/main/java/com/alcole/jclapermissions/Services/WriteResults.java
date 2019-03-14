@@ -14,9 +14,8 @@ public class WriteResults {
   private static CSVPrinter csvPrinter;
 
   public static void write(String fileName, ResultList results) {
-    // String fileName = dateTime + "_" + "results.csv";
     try {
-      BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
+      BufferedWriter writer = Files.newBufferedWriter(Paths.get("out",fileName));
       csvPrinter =
           new CSVPrinter(
               writer,
