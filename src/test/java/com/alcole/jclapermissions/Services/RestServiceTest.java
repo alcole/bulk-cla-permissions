@@ -1,14 +1,13 @@
 package com.alcole.jclapermissions.Services;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static com.alcole.jclapermissions.Services.RestService.getPermissions;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import static com.alcole.jclapermissions.Services.RestService.getPermissions;
-import static org.junit.Assert.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class RestServiceTest {
 

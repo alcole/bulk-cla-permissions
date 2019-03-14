@@ -21,8 +21,8 @@ public class PermissionResult {
   private String scanningPermission;
   private String digitalPermission;
 
-  public String[] toArray() {
-    String[] array = {
+  public final String[] toArray() {
+    return new String[] {
       identifier,
       title,
       format,
@@ -32,11 +32,10 @@ public class PermissionResult {
       scanningPermission,
       digitalPermission
     };
-    return array;
   }
 
   @Override
-  public String toString() {
+  public final String toString() {
     return identifier + "," + title + "," + format + "," + publisher;
   }
 }

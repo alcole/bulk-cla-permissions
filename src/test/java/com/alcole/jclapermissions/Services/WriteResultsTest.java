@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class WriteResultsTest {
 
-  static ResultList results;
+  static private ResultList results;
 
   @BeforeClass
   public static void beforeTest() {

@@ -3,12 +3,16 @@ package com.alcole.jclapermissions.Services;
 import com.alcole.jclapermissions.Model.PermissionResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 
-public class ReadJson {
+public final class ReadJson {
 
-  public static PermissionResult readJson(String json, String identifier) throws IOException {
+  private ReadJson() {
+    // hidden
+  }
+
+  public static PermissionResult readJson(final String json, final String identifier)
+      throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
 
     // read JSON like DOM Parser
@@ -27,12 +31,15 @@ public class ReadJson {
             .publisherCountry(idNode.path("publicationCountry").textValue())
             .build();
 
-    if (permissionNode.get(0).get("usageType").textValue().equals("Photocopying"))
+    if (permissionNode.get(0).get("usageType").textValue().equals("Photocopying")) {
       result.setPhotocopyingPermission(permissionNode.get(0).get("reportType").textValue());
-    if (permissionNode.get(1).get("usageType").textValue().equals("Scanning"))
+    }
+    if (permissionNode.get(1).get("usageType").textValue().equals("Scanning")) {
       result.setScanningPermission(permissionNode.get(1).get("reportType").textValue());
-    if (permissionNode.get(2).get("usageType").textValue().equals("Digital"))
+    }
+    if (permissionNode.get(2).get("usageType").textValue().equals("Digital")) {
       result.setDigitalPermission(permissionNode.get(2).get("reportType").textValue());
+    }
     return result;
   }
 }

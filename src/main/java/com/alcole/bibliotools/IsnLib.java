@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  *
  * @author Alex Cole
  */
-public class IsnLib {
+public final class IsnLib {
 
   private static final int ISSN_LENGTH = 8;
   private static final int ISBN10_LENGTH = 10;
@@ -53,13 +53,17 @@ public class IsnLib {
     OTHER
   }
 
+  private IsnLib() {
+    // not called
+  }
+
   /**
    * Strips the hyphens
    *
    * @param isn
    * @return the string with hyphens removed
    */
-  public static String canonicalForm(String isn) {
+  public static String canonicalForm(final String isn) {
     return isn.replace("-", "").trim();
   }
 
@@ -71,13 +75,15 @@ public class IsnLib {
    * @return the isn string padded with zeroes
    * @throws IllegalArgumentException if provided length is not a valid isn length
    */
-  public static String pad(String isn, int length) throws IllegalArgumentException {
-    if (!(length == ISSN_LENGTH || length == ISBN10_LENGTH)) throw new IllegalArgumentException();
-
-    while (isn.length() < length) {
-      isn = "0" + isn;
+  public static String pad(final String isn, final int length) throws IllegalArgumentException {
+    if (!(length == ISSN_LENGTH || length == ISBN10_LENGTH)) {
+      throw new IllegalArgumentException();
     }
-    return isn;
+    String padded = isn;
+    while (padded.length() < length) {
+      padded = "0" + padded;
+    }
+    return padded;
   }
 
   /**
@@ -86,7 +92,7 @@ public class IsnLib {
    * @param isn
    * @return true for isn strings with supplied with valid check digit, false otherwise
    */
-  public static boolean validateIsn(String isn) {
+  public static boolean validateIsn(final String isn) {
     if (!(Pattern.matches(ISSN_PATTERN, isn)
         || Pattern.matches(ISBN10_PATTERN, isn)
         || Pattern.matches(EAN13_PATTERN, isn))) {

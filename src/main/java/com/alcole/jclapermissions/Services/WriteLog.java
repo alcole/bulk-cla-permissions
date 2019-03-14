@@ -6,9 +6,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class WriteLog {
+public final class WriteLog {
 
-  public static void appendLine(String fileName, String line) {
+  private WriteLog() {
+    // hidden
+  }
+
+  public static void appendLine(final String fileName, String line) {
     line = line + "\r\n";
     try {
       Files.write(Paths.get("out", fileName), line.getBytes(), StandardOpenOption.APPEND);

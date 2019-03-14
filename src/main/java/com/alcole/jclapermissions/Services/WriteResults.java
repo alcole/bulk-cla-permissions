@@ -11,11 +11,10 @@ import java.nio.file.Paths;
 
 public class WriteResults {
 
-  private static CSVPrinter csvPrinter;
-
-  public static void write(String fileName, ResultList results) {
+  public static void write(final String fileName, final ResultList results) {
+    CSVPrinter csvPrinter;
     try {
-      BufferedWriter writer = Files.newBufferedWriter(Paths.get("out",fileName));
+      BufferedWriter writer = Files.newBufferedWriter(Paths.get("out", fileName));
       csvPrinter =
           new CSVPrinter(
               writer,

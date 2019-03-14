@@ -1,21 +1,26 @@
 package com.alcole.jclapermissions.Services;
 
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
+import org.apache.http.client.fluent.Request;
 
-public class RestService {
+public final class RestService {
 
-  private static int messageIdCounter = 0;
   private static final String PERMISSION_URL =
       "https://api.cla.co.uk/check-permissions/v1/GetPermissionByIdentifier/";
   private static final String ADDITIONAL_QUERY_PARAMETERS = "&usageTypes=1,2,8&htmlToggle=False";
+  private static final int TIMEOUT_TIME = 1000;
+  private static int messageIdCounter = 0;
+
+  private RestService() {
+    // hidden
+  }
 
   public static String getPermissions(
-      String identifier, String identifierType, String licenceTypeId, String key)
-      throws IOException, URISyntaxException {
+      final String identifier,
+      final String identifierType,
+      final String licenceTypeId,
+      final String key)
+      throws IOException {
 
     String uri =
         String.format(
@@ -25,15 +30,12 @@ public class RestService {
             licenceTypeId,
             String.valueOf(messageIdCounter++));
 
-    String result =
-        Request.Get(uri)
-            .connectTimeout(1000)
-            .setHeader("Ocp-Apim-Subscription-Key", key)
-            .execute()
-            .returnContent()
-            .asString();
-
-    return result;
+    return Request.Get(uri)
+        .connectTimeout(TIMEOUT_TIME)
+        .setHeader("Ocp-Apim-Subscription-Key", key)
+        .execute()
+        .returnContent()
+        .asString();
   }
 
   public static int getMessageIdCounter() {

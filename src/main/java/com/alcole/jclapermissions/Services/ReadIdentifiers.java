@@ -12,7 +12,7 @@ public class ReadIdentifiers {
 
   private static final String COMMA_DELIMITER = ",";
 
-  private String getRecordFromLine(String line) {
+  private String getRecordFromLine(final String line) {
     String value = "";
     try (Scanner rowScanner = new Scanner(line)) {
       rowScanner.useDelimiter(COMMA_DELIMITER);
@@ -36,7 +36,9 @@ public class ReadIdentifiers {
   }
 
   public static List<String> getIdentifiers() {
-    if (instance == null) instance = new ReadIdentifiers();
+    if (instance == null) {
+      instance = new ReadIdentifiers();
+    }
     return instance.readCsv();
   }
 }

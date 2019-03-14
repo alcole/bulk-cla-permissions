@@ -6,12 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class KeyService {
+public final class KeyService {
 
   // create an object of SingleObject
   private static KeyService instance = null;
 
-  public String ocp = "";
+  private String ocp = "";
 
   // make the constructor private so that this class cannot be
   // instantiated
@@ -23,7 +23,9 @@ public class KeyService {
 
   // Get the only object available
   public static String getKey() throws IOException {
-    if (instance == null) instance = new KeyService();
+    if (instance == null) {
+      instance = new KeyService();
+    }
     return instance.ocp;
   }
 }
