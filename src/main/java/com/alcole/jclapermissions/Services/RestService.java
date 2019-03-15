@@ -1,7 +1,17 @@
 package com.alcole.jclapermissions.Services;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import org.apache.http.client.fluent.Request;
+import java.net.URI;
+import java.net.URISyntaxException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClients;
 
 /** class to manage the API calls. */
 public final class RestService {
@@ -13,6 +23,11 @@ public final class RestService {
   private static int messageIdCounter = 0;
   private static String apimKey;
   private static String licenceTypeId;
+
+  private static HttpClient httpClient =
+      HttpClients.custom()
+          .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec("easy").build())
+          .build();
 
   private RestService() {
     // hidden
@@ -26,23 +41,22 @@ public final class RestService {
    * @return the content of the response as a String
    * @throws IOException when the call fails
    */
-  public static String getPermissions(final String identifier, final String identifierType)
-      throws IOException {
+  public static HttpEntity getPermissions(final String identifier, final String identifierType)
+      throws IOException, URISyntaxException {
 
-    String uri =
-        String.format(
-            PERMISSION_URL + "%s/%s/%s?messageId=%s" + ADDITIONAL_QUERY_PARAMETERS,
-            identifierType,
-            identifier,
-            licenceTypeId,
-            String.valueOf(messageIdCounter++));
+    URIBuilder builder =
+        new URIBuilder(PERMISSION_URL + identifierType + "/" + identifier + "/" + licenceTypeId);
+    builder.setParameter("messageId", String.valueOf(messageIdCounter++));
+    builder.setParameter("usageTypes", "1,2,8");
+    builder.setParameter("htmlToggle", "False");
 
-    return Request.Get(uri)
-        .connectTimeout(TIMEOUT_TIME)
-        .setHeader("Ocp-Apim-Subscription-Key", apimKey)
-        .execute()
-        .returnContent()
-        .asString();
+    URI uri = builder.build();
+    HttpGet request = new HttpGet(uri);
+    request.setHeader("Ocp-Apim-Subscription-Key", apimKey);
+
+    HttpResponse response = httpClient.execute(request);
+
+    return response.getEntity();
   }
 
   /**

@@ -4,6 +4,7 @@ import com.alcole.jclapermissions.Model.PermissionResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import org.apache.http.HttpEntity;
 
 public final class ReadJson {
 
@@ -11,12 +12,13 @@ public final class ReadJson {
     // hidden
   }
 
-  public static PermissionResult readJson(final String json, final String identifier)
+  public static PermissionResult readJson(final HttpEntity response, final String identifier)
       throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
 
     // read JSON like DOM Parser
-    JsonNode rootNode = objectMapper.readTree(json);
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode rootNode = objectMapper.readTree(response.getContent());
+
     JsonNode idNode = rootNode.path("metadata");
 
     // check status code and write to log if not ok?

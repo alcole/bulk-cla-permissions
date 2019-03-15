@@ -81,6 +81,7 @@ public class Main {
         }
         try {
           results.add(ReadJson.readJson(RestService.getPermissions(id, type), id));
+          System.out.println("checking " + id);
           successfulChecks++;
         } catch (IOException e) {
           WriteLog.appendLine("IOException: " + e.getMessage() + " on checking " + id);
