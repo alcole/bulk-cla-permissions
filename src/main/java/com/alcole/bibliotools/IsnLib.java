@@ -70,11 +70,11 @@ public final class IsnLib {
     if (!(length == ISSN_LENGTH || length == ISBN10_LENGTH)) {
       throw new IllegalArgumentException();
     }
-    String padded = isn;
+    StringBuilder padded = new StringBuilder(isn).reverse();
     while (padded.length() < length) {
-      padded = "0" + padded;
+      padded = padded.append("0");
     }
-    return padded;
+    return padded.reverse().toString();
   }
 
   /**
@@ -154,8 +154,6 @@ public final class IsnLib {
       checkSum = (10 - (checkSum % 10));
       if (checkSum > 9) {
         checkSum = 0;
-      } else {
-        checkSum = checkSum;
       }
       return (char) (checkSum + 48);
     } else {

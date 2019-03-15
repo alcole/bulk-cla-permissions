@@ -5,6 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A permission result to store the data from the permission call,
+ * the metadata associated with the
+ * supplied identifier and the associated permissions.
+ */
 @Builder
 @Getter
 @Setter
@@ -21,6 +26,10 @@ public class PermissionResult {
   private String scanningPermission;
   private String digitalPermission;
 
+  /**
+   * permission result as array.
+   * @return array of the result of a permission call
+   */
   public final String[] toArray() {
     return new String[] {
       identifier,

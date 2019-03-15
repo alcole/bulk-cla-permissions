@@ -41,6 +41,11 @@ public final class LicenceService {
     }
   }
 
+  /**
+   * returns the licence code, reads in if not already
+   * set.
+   * @return the licence code read in from the file
+   */
   public static String getLicenceCode() {
     if (instance == null) {
       instance = new LicenceService();
@@ -48,10 +53,20 @@ public final class LicenceService {
     return instance.licenceCode;
   }
 
+  /**
+   * validates a licence code.
+   * @param code a licence code
+   * @return true if the code is valid and false otherwise
+   */
   public static boolean isValidLicenceCode(final String code) {
     return LICENCES.containsKey(code);
   }
 
+  /**
+   * get the name from the licence code.
+   * @param code the code to look up
+   * @return the name of the licence or "Code not found"
+   */
   public static String getLicenceName(final String code) {
     return LICENCES.getOrDefault(code, "Code not found");
   }
