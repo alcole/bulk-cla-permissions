@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * helper class to read identifiers from csv.
+ */
 public class ReadIdentifiers {
 
   private static ReadIdentifiers instance = null;
@@ -35,6 +38,10 @@ public class ReadIdentifiers {
     return records;
   }
 
+  /**
+   * gets the identifier from the csv.
+   * @return a list of identifiers
+   */
   public static List<String> getIdentifiers() {
     if (instance == null) {
       instance = new ReadIdentifiers();

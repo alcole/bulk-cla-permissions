@@ -27,21 +27,21 @@ public class LicenceServiceTest {
   }
 
   @Test
-  public void ValidateLicenceCode() {
-    assertTrue(LicenceService.validateLicenceCode("132"));
-    assertTrue(LicenceService.validateLicenceCode("134"));
-    assertTrue(LicenceService.validateLicenceCode("136"));
-    assertTrue(LicenceService.validateLicenceCode("137"));
-    assertTrue(LicenceService.validateLicenceCode("140"));
-    assertTrue(LicenceService.validateLicenceCode("141"));
-    assertTrue(LicenceService.validateLicenceCode("143"));
-    assertTrue(LicenceService.validateLicenceCode("154"));
-    assertTrue(LicenceService.validateLicenceCode("230"));
-    assertTrue(LicenceService.validateLicenceCode("232"));
-    assertTrue(LicenceService.validateLicenceCode("234"));
-    assertTrue(LicenceService.validateLicenceCode("235"));
+  public void isValidLicenceCodeTest() {
+    assertTrue(LicenceService.isValidLicenceCode("132"));
+    assertTrue(LicenceService.isValidLicenceCode("134"));
+    assertTrue(LicenceService.isValidLicenceCode("136"));
+    assertTrue(LicenceService.isValidLicenceCode("137"));
+    assertTrue(LicenceService.isValidLicenceCode("140"));
+    assertTrue(LicenceService.isValidLicenceCode("141"));
+    assertTrue(LicenceService.isValidLicenceCode("143"));
+    assertTrue(LicenceService.isValidLicenceCode("154"));
+    assertTrue(LicenceService.isValidLicenceCode("230"));
+    assertTrue(LicenceService.isValidLicenceCode("232"));
+    assertTrue(LicenceService.isValidLicenceCode("234"));
+    assertTrue(LicenceService.isValidLicenceCode("235"));
 
-    assertFalse(LicenceService.validateLicenceCode("111"));
+    assertFalse(LicenceService.isValidLicenceCode("111"));
   }
 
   @Test

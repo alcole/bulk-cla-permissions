@@ -61,3 +61,11 @@ key.txt
 *_log.txt
 out/*
 target/*
+log/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+

@@ -44,23 +44,14 @@ public final class IsnLib {
   private static final String ISBN_PREFIX1 = "978";
   private static final String ISBN_PREFIX2 = "979";
 
-  public enum IdentifierType {
-    ISSN,
-    ISBN10,
-    ISBN13,
-    ISMN,
-    ISSNEAN13,
-    OTHER
-  }
-
   private IsnLib() {
     // not called
   }
 
   /**
-   * Strips the hyphens
+   * Strips the hyphens.
    *
-   * @param isn
+   * @param isn The ISN to format
    * @return the string with hyphens removed
    */
   public static String canonicalForm(final String isn) {
@@ -68,10 +59,10 @@ public final class IsnLib {
   }
 
   /**
-   * pads with leading zeroes to desired length works only with ISSN and ISBN-10
+   * pads with leading zeroes to desired length works only with ISSN and ISBN-10.
    *
-   * @param isn
-   * @param length
+   * @param isn the ISN to pad
+   * @param length the target length
    * @return the isn string padded with zeroes
    * @throws IllegalArgumentException if provided length is not a valid isn length
    */
@@ -87,12 +78,12 @@ public final class IsnLib {
   }
 
   /**
-   * takes a String and checks if the check digit matches calculated check digit
+   * takes a String and checks if the check digit matches calculated check digit.
    *
-   * @param isn
+   * @param isn the ISN to validate
    * @return true for isn strings with supplied with valid check digit, false otherwise
    */
-  public static boolean validateIsn(final String isn) {
+  public static boolean isValidIsn(final String isn) {
     if (!(Pattern.matches(ISSN_PATTERN, isn)
         || Pattern.matches(ISBN10_PATTERN, isn)
         || Pattern.matches(EAN13_PATTERN, isn))) {
@@ -113,14 +104,16 @@ public final class IsnLib {
   }
 
   /**
-   * helper method for validateIsn uses fast accumulator algorithm for ISBN-10 and ISSN
+   * helper method for validateIsn uses fast accumulator algorithm for ISBN-10 and ISSN.
    *
-   * @param isn
-   * @param length
+   * @param isn isn to validate
+   * @param length length of isn
    * @return true for isns supplied with valid check digit, false otherwise
    */
-  private static boolean validate(String isn, int length) {
-    if (!(length == ISSN_LENGTH || length == ISBN10_LENGTH)) throw new IllegalArgumentException();
+  private static boolean validate(final String isn, final int length) {
+    if (!(length == ISSN_LENGTH || length == ISBN10_LENGTH)) {
+      throw new IllegalArgumentException();
+    }
 
     int s = 0, t = 0;
     for (int i = 0; i < length - 1; i++) {
@@ -141,7 +134,7 @@ public final class IsnLib {
    * @return the char of the check digit 0-9 or 'X'
    * @throws IllegalArgumentException for strings of the wrong length
    */
-  public static char generateCheck(String isn) throws IllegalArgumentException {
+  public static char generateCheck(final String isn) throws IllegalArgumentException {
     if (!(isn.length() == ISBN13_LENGTH
         || isn.length() == ISBN10_LENGTH
         || isn.length() == ISBN13_LENGTH - 1
@@ -159,7 +152,11 @@ public final class IsnLib {
         checkSum += Character.getNumericValue(isn.charAt(i));
       }
       checkSum = (10 - (checkSum % 10));
-      checkSum = checkSum > 9 ? 0 : checkSum;
+      if (checkSum > 9) {
+        checkSum = 0;
+      } else {
+        checkSum = checkSum;
+      }
       return (char) (checkSum + 48);
     } else {
       return generateCheckIsbn10Issn(isn, ((isn.length() + 1) / 2) * 2);
@@ -167,39 +164,43 @@ public final class IsnLib {
   }
 
   /**
-   * @param isn
+   * @param isn the isn to get check digit for
    * @param length - the target length for the supplied isn
    * @return the character corresponding to the check digit (0-9 or 'X')
    */
-  private static char generateCheckIsbn10Issn(String isn, int length) {
+  private static char generateCheckIsbn10Issn(final String isn, final int length) {
     int checkSum = 0;
     for (int i = 0; i < length - 1; i++) {
       checkSum += Character.getNumericValue(isn.charAt(i)) * (length - i);
     }
     checkSum = (11 - checkSum % 11) % 11;
-    return checkSum == 10 ? 'X' : (char) (checkSum + 48);
+    if (checkSum == 10) {
+      return 'X';
+    } else {
+      return (char) (checkSum + 48);
+    }
   }
 
   /**
-   * @param isbn10
+   * @param isbn10 the ISBN to convert
    * @return the ISBN-13 representation of the supplied ISBN-10
    */
-  public static String isbn10To13(String isbn10) {
+  public static String isbn10To13(final String isbn10) {
     return isbn10To13(ISBN_PREFIX1, isbn10);
   }
 
-  public static String isbn10To13(String prefix, String isbn10) {
+  public static String isbn10To13(final String prefix, final String isbn10) {
     return prefix + isbn10.substring(0, 9) + generateCheck(prefix + isbn10);
   }
 
   /**
-   * verifies if the given isn string is valid if padded with zeroes to make the correct length
+   * verifies if the given isn string is valid if padded with zeroes to make the correct length.
    *
-   * @param isn
-   * @param isnType
+   * @param isn isn to check
+   * @param isnType type of the issn
    * @return true if padded isn validates by check sum digit
    */
-  public static boolean lostLeadingZeroes(String isn, IdentifierType isnType) {
+  public static boolean lostLeadingZeroes(final String isn, final IdentifierType isnType) {
     switch (isnType) {
       case ISSN:
         return validate(pad(isn, ISSN_LENGTH), ISSN_LENGTH);
@@ -211,34 +212,52 @@ public final class IsnLib {
   }
 
   /**
-   * takes a 13 digit EAN and returns the ISSN if available
+   * takes a 13 digit EAN and returns the ISSN if available.
    *
    * @param ean 13 digit EAN code
    * @return String ISSN if EAN contains, else returns original EAN code
    */
-  public static String issnFromEan13(String ean) {
-    if (!(Pattern.matches(EAN13_PATTERN, ean) || ean.substring(0, 3).equals(ISSNEAN13_PREFIX)))
+  public static String issnFromEan13(final String ean) {
+    if (!(Pattern.matches(EAN13_PATTERN, ean) || ean.substring(0, 3).equals(ISSNEAN13_PREFIX))) {
       return ean;
+    }
     return canonicalForm(ean).substring(3, 10) + generateCheck(canonicalForm(ean).substring(3, 10));
   }
 
   /**
-   * @param isn
+   * @param isn isn to get the type
    * @return IdentifierType from Enum IdentifierType
    * @throws IllegalArgumentException for strings of a length that cannot be an isn and if the check
    *     digit is not valid
    */
-  public static IdentifierType getType(String isn) throws IllegalArgumentException {
-    if (!validateIsn(isn)) throw new IllegalArgumentException("invalid identifier");
-    isn = canonicalForm(isn);
-    int length = isn.length();
+  public static IdentifierType getType(final String isn) throws IllegalArgumentException {
+    if (!isValidIsn(isn)) {
+      throw new IllegalArgumentException("invalid identifier");
+    }
+    int length = canonicalForm(isn).length();
 
-    if (length == 8) return IdentifierType.ISSN;
-    else if (length == 10) return IdentifierType.ISBN10;
-    else if (isn.substring(0, 3).equals(ISSNEAN13_PREFIX)) return IdentifierType.ISSNEAN13;
-    else if (isn.substring(0, 4).equals(ISMN_PREFIX)) return IdentifierType.ISMN;
-    else if (isn.substring(0, 3).equals(ISBN_PREFIX1) || isn.substring(0, 3).equals(ISBN_PREFIX2))
+    if (length == 8) {
+      return IdentifierType.ISSN;
+    } else if (length == 10) {
+      return IdentifierType.ISBN10;
+    } else if (isn.substring(0, 3).equals(ISSNEAN13_PREFIX)) {
+      return IdentifierType.ISSNEAN13;
+    } else if (isn.substring(0, 4).equals(ISMN_PREFIX)) {
+      return IdentifierType.ISMN;
+    } else if (isn.substring(0, 3).equals(ISBN_PREFIX1)
+        || isn.substring(0, 3).equals(ISBN_PREFIX2)) {
       return IdentifierType.ISBN13;
-    else return IdentifierType.OTHER;
+    } else {
+      return IdentifierType.OTHER;
+    }
+  }
+
+  public enum IdentifierType {
+    ISSN,
+    ISBN10,
+    ISBN13,
+    ISMN,
+    ISSNEAN13,
+    OTHER
   }
 }

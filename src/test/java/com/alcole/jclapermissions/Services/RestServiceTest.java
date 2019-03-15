@@ -1,6 +1,8 @@
 package com.alcole.jclapermissions.Services;
 
 import static com.alcole.jclapermissions.Services.RestService.getPermissions;
+import static com.alcole.jclapermissions.Services.RestService.setKey;
+import static com.alcole.jclapermissions.Services.RestService.setLicence;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
@@ -12,8 +14,10 @@ import org.junit.Test;
 public class RestServiceTest {
 
   @BeforeClass
-  public static void beforeTest() {
+  public static void beforeTest() throws IOException {
     System.out.println("Starting RestServiceTest");
+    setKey(KeyService.getKey());
+    setLicence("136");
   }
 
   @AfterClass
@@ -23,7 +27,7 @@ public class RestServiceTest {
 
   @Test
   public void getPermissionsTest() throws IOException, URISyntaxException {
-    String result = getPermissions("9781408855652", "ISBN", "136", KeyService.getKey());
+    String result = getPermissions("9781408855652", "ISBN");
     System.out.println(result);
     assertNotNull(result);
   }

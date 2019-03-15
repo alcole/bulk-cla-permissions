@@ -28,18 +28,18 @@ public class IsnLibTest {
   }
 
   @Test
-  public void testValidateIsn() {
-    assertTrue(validateIsn("9781408855652"));
-    assertTrue(validateIsn("00014664"));
-    assertTrue(validateIsn("978-0805071665"));
-    assertTrue(validateIsn("0805071660"));
-    assertTrue(validateIsn("9772434561006"));
+  public void testIsValidIsn() {
+    assertTrue(isValidIsn("9781408855652"));
+    assertTrue(isValidIsn("00014664"));
+    assertTrue(isValidIsn("978-0805071665"));
+    assertTrue(isValidIsn("0805071660"));
+    assertTrue(isValidIsn("9772434561006"));
 
-    assertFalse(validateIsn("0805071661"));
-    assertFalse("invalid form", validateIsn("0-8-0-5-0-7-1-6-6-1"));
+    assertFalse(isValidIsn("0805071661"));
+    assertFalse("invalid form", isValidIsn("0-8-0-5-0-7-1-6-6-1"));
 
-    assertTrue(validateIsn("2434561X"));
-    assertTrue(validateIsn("2434561x"));
+    assertTrue(isValidIsn("2434561X"));
+    assertTrue(isValidIsn("2434561x"));
   }
 
   @Test

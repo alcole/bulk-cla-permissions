@@ -31,7 +31,7 @@ public final class LicenceService {
   private String licenceCode;
 
   private LicenceService() {
-    Path licenceFile = Paths.get("licence.txt");
+    Path licenceFile = Paths.get("licenceCode.txt");
     if (Files.exists(licenceFile)) {
       try (BufferedReader reader = Files.newBufferedReader(licenceFile)) {
         licenceCode = reader.readLine().trim();
@@ -48,7 +48,7 @@ public final class LicenceService {
     return instance.licenceCode;
   }
 
-  public static boolean validateLicenceCode(final String code) {
+  public static boolean isValidLicenceCode(final String code) {
     return LICENCES.containsKey(code);
   }
 
@@ -56,5 +56,3 @@ public final class LicenceService {
     return LICENCES.getOrDefault(code, "Code not found");
   }
 }
-
-
