@@ -80,11 +80,14 @@ public class Main {
           issnCount++;
         }
         try {
-          results.add(ReadJson.readJson(RestService.getPermissions(id, type), id));
+          results.add(RestService.getPermissions(id, type));
           System.out.println("checking " + id);
           successfulChecks++;
         } catch (IOException e) {
           WriteLog.appendLine("IOException: " + e.getMessage() + " on checking " + id);
+          System.out.println(Arrays.toString(e.getStackTrace()));
+        } catch (NullPointerException e) {
+          WriteLog.appendLine("NullPointerException: " + e.getMessage() + " on checking " + id);
           System.out.println(Arrays.toString(e.getStackTrace()));
         }
       }

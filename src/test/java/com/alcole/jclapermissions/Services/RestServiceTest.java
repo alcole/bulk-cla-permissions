@@ -5,8 +5,10 @@ import static com.alcole.jclapermissions.Services.RestService.setKey;
 import static com.alcole.jclapermissions.Services.RestService.setLicence;
 import static org.junit.Assert.assertNotNull;
 
+import com.alcole.jclapermissions.Model.PermissionResult;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import org.apache.http.HttpEntity;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,8 +29,8 @@ public class RestServiceTest {
 
   @Test
   public void getPermissionsTest() throws IOException, URISyntaxException {
-//    String result = getPermissions("9781408855652", "ISBN");
-//    System.out.println(result);
+    PermissionResult result = getPermissions("9781408855652", "ISBN");
+    System.out.println(result);
     System.out.println();
 //    assertNotNull(result);
   }
