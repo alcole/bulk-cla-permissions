@@ -1,5 +1,6 @@
 package com.alcole.jclapermissions.Services;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +35,10 @@ public final class WriteLog {
    * creates the logfile and stores filename.
    * @param file the name of the file to set up
    */
-  public static void setupFile(final String file) {
+  public static void setupFile(final String file) throws IOException{
+    if (!Files.isDirectory(Paths.get("out"))) {
+      Files.createDirectory(Paths.get("out"));
+    }
     fileName = file;
     Path p = Paths.get("out", fileName);
     try {

@@ -12,7 +12,6 @@ import com.alcole.bibliotools.IsnLib;
 import com.alcole.bibliotools.IsnLib.IdentifierType;
 import com.alcole.jclapermissions.Services.LicenceService;
 import com.alcole.jclapermissions.Services.ReadIdentifiers;
-import com.alcole.jclapermissions.Services.ReadJson;
 import com.alcole.jclapermissions.Services.RestService;
 import com.alcole.jclapermissions.Services.ResultList;
 import com.alcole.jclapermissions.Services.WriteLog;
