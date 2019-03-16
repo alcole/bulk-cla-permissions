@@ -2,12 +2,14 @@ package com.alcole.jclapermissions;
 
 import static com.alcole.bibliotools.IsnLib.getType;
 import static com.alcole.bibliotools.IsnLib.issnFromEan13;
+import static com.alcole.bibliotools.IsnLib.pad;
 import static com.alcole.jclapermissions.Services.KeyService.getKey;
 import static com.alcole.jclapermissions.Services.RestService.getMessageIdCounter;
 import static com.alcole.jclapermissions.Services.RestService.setKey;
 import static com.alcole.jclapermissions.Services.RestService.setLicence;
 
 import com.alcole.bibliotools.IsnLib;
+import com.alcole.bibliotools.IsnLib.IdentifierType;
 import com.alcole.jclapermissions.Services.LicenceService;
 import com.alcole.jclapermissions.Services.ReadIdentifiers;
 import com.alcole.jclapermissions.Services.ReadJson;
@@ -64,6 +66,12 @@ public class Main {
 
     for (String id : identifiers) {
       // valid check
+      if (!IsnLib.isValidIsn(id) && IsnLib.lostLeadingZeroes(id, IdentifierType.ISSN)) {
+          id = pad(id, 8);
+      }
+      else if (!IsnLib.isValidIsn(id) && IsnLib.lostLeadingZeroes(id, IdentifierType.ISBN10)) {
+        id = pad(id, 10);
+      }
       if (!IsnLib.isValidIsn(id)) {
         invalidIsnCount++;
         WriteLog.appendLine("" + id + " fails check digit validation");
