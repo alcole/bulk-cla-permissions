@@ -30,7 +30,10 @@ public class ReadIdentifiers {
     List<String> records = new ArrayList<>();
     try (Scanner scanner = new Scanner(new File("toCheck.csv"))) {
       while (scanner.hasNextLine()) {
-        records.add(getRecordFromLine(scanner.nextLine()));
+        String line = getRecordFromLine(scanner.nextLine());
+          if(line.trim().length() > 0) {
+            records.add(line);
+          }
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
