@@ -19,21 +19,21 @@ To run double click the exe, a progress box will appear. When this closes the pr
 
 
 ## Licence Codes
-|Code| Licence Sector |
-|:--|:--|
-|  132|Further Education  |
-|  134|Business  |
-|  136|Higher Education  |
-|  132|Further Education  |
-|  137|Law  |
-|  140|Extended Multinational  |
-|  141|Pharmaceutical  |
-|  143|Schools  |
-|  154|Public Sector  |
-|  230|Extended Pharmaceutical Multinational  |
-|  232|Media Monitoring  |
-|  234|Multinational  |
-|  235|Pharmaceutical Multinational  |
+| Code | Licence Sector                        |
+|:-----|:--------------------------------------|
+|  132 | Further Education                     |
+|  134 | Business                              |
+|  136 | Higher Education                      |
+|  132 | Further Education                     |
+|  137 | Law                                   |
+|  140 | Extended Multinational                |
+|  141 | Pharmaceutical                        |
+|  143 | Schools                               |
+|  154 | Public Sector                         |
+|  230 | Extended Pharmaceutical Multinational |
+|  232 | Media Monitoring                      |
+|  234 | Multinational                         |
+|  235 | Pharmaceutical Multinational          |
 
 * * *
 
