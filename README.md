@@ -3,7 +3,7 @@
 Submit a list of ISBNs and ISSNs and get the CLA permissions by licence.
 
 ## Installation and Setup
- * Download the latest exe from the releases area [here](https://github.com/alcole/bulk-cla-permissions/releases).
+ * Download the latest exe from the Assets part of the releases area [here](https://github.com/alcole/bulk-cla-permissions/releases).
  * Sign up for an access key (AKA Ocp-Apim-Subscription-Key) for the CLA Check Permissions API via the API portal [here](https://apiportal.cla.co.uk/products).
 
 ## How to Use
