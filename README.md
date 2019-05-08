@@ -10,7 +10,7 @@ Submit a list of ISBNs and ISSNs and get the CLA permissions by licence.
 You will need to provide 3 files
 
  1. key.txt - save your Ocp-Apim key from the apiportal in this file
- 2. licence.txt - save the licence code here (see below for list of available codes)
+ 2. licenceCode.txt - save the licence code here (see below for list of available codes)
  3. toCheck.csv - a one column csv file (no header) of ISBN/ISSN to run through the checker
  
 These files must be in the same folder as the downloaded exe file.
