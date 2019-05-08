@@ -28,6 +28,13 @@ public class RestServiceTest {
   }
 
   @Test
+  public void getPermissionsTestDigital() throws IOException, URISyntaxException {
+    PermissionResult result = getPermissions("2045807X", "ISSN");
+    System.out.println(result);
+    assertNotNull(result);
+  }
+
+  @Test
   public void getPermissionsTest() throws IOException, URISyntaxException {
     PermissionResult result = getPermissions("9781408855652", "ISBN");
     System.out.println(result);

@@ -109,15 +109,19 @@ public final class RestService {
                 .publisherCountry(idNode.path("publicationCountry").textValue())
                 .build();
 
-        if (permissionNode.get(0).get("usageType").textValue().equals("Photocopying")) {
-          result.setPhotocopyingPermission(permissionNode.get(0).get("reportType").textValue());
+        for (int i = 0; i < permissionNode.size(); i++) {
+          if (permissionNode.get(i).get("usageType").textValue().equals("Photocopying")) {
+            result.setPhotocopyingPermission(permissionNode.get(i).get("reportType").textValue());
+          }
+          else if (permissionNode.get(i).get("usageType").textValue().equals("Scanning")) {
+            result.setScanningPermission(permissionNode.get(i).get("reportType").textValue());
+          }
+          else if (permissionNode.get(i).get("usageType").textValue().equals("Digital")) {
+            result.setDigitalPermission(permissionNode.get(i).get("reportType").textValue());
+          }
         }
-        if (permissionNode.get(1).get("usageType").textValue().equals("Scanning")) {
-          result.setScanningPermission(permissionNode.get(1).get("reportType").textValue());
-        }
-        if (permissionNode.get(2).get("usageType").textValue().equals("Digital")) {
-          result.setDigitalPermission(permissionNode.get(2).get("reportType").textValue());
-        }
+
+
         return result;
       }  finally {
         instream.close();
