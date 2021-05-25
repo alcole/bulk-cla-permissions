@@ -45,7 +45,7 @@ Although I am an employee of CLA this is an independent project and is offered w
 Please share ideas or submit pull requests, and please let me know if this tool has helped you.
 
  * [identifiertools.com ](https://www.identifiertools.com/)
- * [My profile on GitHub User](https://ghuser.io/alcole/)
+ * [My profile on GitHub](https://github.com/alcole)
  * [My profile on HackerRank](https://www.hackerrank.com/alcole)
  * [Twitter](https://twitter.com/AlexJCole)
  * [LinkedIn](https://www.linkedin.com/in/alexcole01/)
